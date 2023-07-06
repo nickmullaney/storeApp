@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "storeapp"]
+	url = https://github.com/nickmullaney/storeApp.git
+	fetch = +refs/heads/*:refs/remotes/storeapp/*
+[branch "main"]
+	remote = storeapp
+	merge = refs/heads/main
