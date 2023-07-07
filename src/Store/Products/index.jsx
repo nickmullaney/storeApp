@@ -14,7 +14,8 @@ const initialState = {
 };
 
 export const getProductsByCategory = (state, category) => {
-  if (category) {
+  if (category && category.name) {
+    console.log('Category:', category, 'State: ', state);
     return state.products.filter((product) => product.category === category.name);
   }
   return state.products;
