@@ -1,32 +1,22 @@
-header working 
+as close as I can get
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 #
-# On branch main
-# Your branch is up to date with 'storeapp/main'.
+# On branch phase1
+# Your branch is up to date with 'storeapp/phase1'.
 #
 # Changes to be committed:
-#	new file:   .github/workflows/node.yml
+#	new file:   assets/images/clothingBackground.jpg
+#	new file:   assets/images/electronicsBackground.jpg
+#	new file:   assets/images/foodBackground.jpg
+#	new file:   assets/images/weaponBackground.jpg
 #	modified:   package-lock.json
 #	modified:   package.json
-#	deleted:    src/App.css
-#	modified:   src/App.jsx
-#	new file:   src/Components/Cart/checkout.jsx
-#	new file:   src/Components/Cart/simplecart.jsx
-#	new file:   src/Components/Categories/index.jsx
-#	new file:   src/Components/Footer/index.jsx
-#	new file:   src/Components/Header/index.jsx
-#	new file:   src/Components/Products/index.jsx
-#	new file:   src/Components/Storefront/categories.jsx
-#	new file:   src/Components/Storefront/current-category.jsx
-#	new file:   src/Components/Storefront/products.jsx
-#	new file:   src/Components/Storefront/storefront.jsx
-#	new file:   src/Store/Categories/index.jsx
-#	new file:   src/Store/index.jsx
-#	new file:   src/Store/products.jsx
-#	new file:   src/__tests__/app.test.js
-#	new file:   src/__tests__/cart.test.js
-#	deleted:    src/assets/react.svg
-#	deleted:    src/index.css
+#	modified:   src/Components/Categories/index.jsx
+#	modified:   src/Components/Products/index.jsx
+#	modified:   src/Store/Categories/index.jsx
+#	new file:   src/Store/Products/index.jsx
+#	modified:   src/Store/index.jsx
+#	deleted:    src/Store/products.jsx
 #	modified:   src/main.jsx
 #
