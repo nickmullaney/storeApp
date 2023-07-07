@@ -12,3 +12,4 @@
 [branch "phase1"]
 	remote = storeapp
 	merge = refs/heads/phase1
+	github-pr-owner-number = "nickmullaney#storeApp#1"
