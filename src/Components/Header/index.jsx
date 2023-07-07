@@ -1,10 +1,11 @@
-import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import { useSelector } from 'react-redux';
+import { AppBar, Box, Button, IconButton, Toolbar, Typography,} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-// import React from "react";
-
 const Header = () => {
+  const { cart } = useSelector((state) => state.cart);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -26,13 +27,16 @@ const Header = () => {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}>
-          <ShoppingCartIcon />
-        </IconButton>
-        <Button color="inherit">Cart</Button>
-      </Toolbar>
-    </AppBar>
-    </Box >
+            sx={{ mr: 2 }}
+          >
+            <ShoppingCartIcon />
+            <Typography variant="body1" component="div" sx={{ ml: 1 }}>
+            </Typography>
+          </IconButton>
+          <Button color="inherit">Cart ({cart.length})</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 
