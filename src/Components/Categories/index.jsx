@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCategory, getCategories } from '../../Store/Categories';
+import { selectCategory, getCategories } from '../../Store/Categories'; // Added `getActiveCategory` import
 import { Box, Typography } from '@mui/material';
 import electronicsBackground from '../../../assets/images/electronicsBackground.jpg';
 import foodBackground from '../../../assets/images/foodBackground.jpg';
@@ -7,14 +7,17 @@ import clothingBackground from '../../../assets/images/clothingBackground.jpg';
 import weaponsBackground from '../../../assets/images/weaponBackground.jpg';
 
 const Categories = () => {
-  const { categories } = useSelector(getCategories);
+  // Retrieve the categories and active category from the Redux store
+  const { categories, activeCategory } = useSelector(getCategories); // Updated to access `categories` and `activeCategory`
   const dispatch = useDispatch();
 
   const handleCategoryClick = (category) => {
+    // Dispatch the selectCategory action with the clicked category as the payload
     dispatch(selectCategory(category));
   };
 
   const getCategoryBackground = (categoryName) => {
+    // Determine the background image URL based on the category name
     switch (categoryName) {
       case 'electronics':
         return `url(${electronicsBackground})`;
@@ -31,9 +34,11 @@ const Categories = () => {
 
   return (
     <div>
+      {/* Render the heading */}
       <Typography variant="h4" component="h1" align="center">
         Categories
       </Typography>
+      {/* Render the category boxes */}
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
         {categories.map((category) => (
           <Box
@@ -46,7 +51,7 @@ const Categories = () => {
               padding: 2,
               marginRight: 2,
               width: '150px', // Set a fixed width for all category boxes
-              backgroundImage: getCategoryBackground(category.name),// Apply the background image
+              backgroundImage: getCategoryBackground(category.name), // Apply the background image
               textAlign: 'center',
               fontSize: '1rem',
               backgroundSize: 'cover',
@@ -57,8 +62,11 @@ const Categories = () => {
                 fontWeight: 'bold', // Make the text bold
                 fontSize: '1.1rem', // Increase the font size slightly
               },
+              // Add a class to indicate the active category
+              ...(activeCategory === category && { backgroundColor: '#ccc' }),
             }}
           >
+            {/* Render the category display name */}
             <Typography variant="body1">{category.displayName}</Typography>
           </Box>
         ))}

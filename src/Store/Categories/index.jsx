@@ -23,6 +23,7 @@ const initialState = {
 export const getCategories = (state) => state.categories;
 export const getActiveCategory = (state) => state.activeCategory;
 
+
 const categoriesReducer = (state = initialState, action) => {
   console.log('Action:', action); // Log the action to see if it is being triggered
   switch (action.type) {
