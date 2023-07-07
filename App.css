@@ -1,0 +1,14 @@
+.addedItems{
+  text-align: right;
+}
+
+.links{
+  cursor: pointer;
+}
+
+#categoryTitle {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 20px;
+}
