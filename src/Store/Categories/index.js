@@ -2,11 +2,12 @@
 export const SELECT_CATEGORY = 'SELECT_CATEGORY';
 
 // Action Creators
-export const selectCategory = (category) => ({
-  type: SELECT_CATEGORY,
-  payload: category,
-});
-
+export const selectCategory = (category) => {
+  return {
+    type: SELECT_CATEGORY,
+    payload: category,
+  }
+};
 
 // Reducer
 const initialState = {
@@ -23,13 +24,12 @@ const initialState = {
 export const getCategories = (state) => state.categories;
 export const getActiveCategory = (state) => state.activeCategory;
 
-
 const categoriesReducer = (state = initialState, action) => {
   console.log('Action:', action); // Log the action to see if it is being triggered
   switch (action.type) {
     case SELECT_CATEGORY:
       console.log('Selected Category:', action.payload); // Log the selected category
-      return { ...state, activeCategory: action.payload };
+      return { ...state, activeCategory: action.payload }; // Update the activeCategory state
     default:
       return state;
   }

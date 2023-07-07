@@ -1,15 +1,16 @@
 import { useSelector } from 'react-redux';
-import { getActiveCategory } from '../../Store/Categories';
-import { getProductsByCategory } from '../../Store/Products';
+// import { getActiveCategory } from '../../Store/Categories';
+// import { getProductsByCategory } from '../../Store/Products';
 import { Card, CardContent, CardMedia, Typography, CardActions, Button, Grid } from '@mui/material';
 
 const Products = () => {
   // Retrieve the active category from the Redux store
-  const activeCategory = useSelector(getActiveCategory);
+  const { activeCategory } = useSelector(state => state.categories);
   console.log('Product Active Category ', activeCategory);
 
   // Get the products for the active category from the Redux store
-  const { products } = useSelector((state) => getProductsByCategory(state, activeCategory));
+  const { products } = useSelector(state => state);
+  console.log('These are products ', products);
 
   return (
     <Grid container spacing={2}>
