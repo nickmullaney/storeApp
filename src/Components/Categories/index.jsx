@@ -5,7 +5,8 @@ import { Box, Button, Typography } from '@mui/material';
 import electronicsBackground from '../../../assets/images/electronicsBackground.jpg';
 import foodBackground from '../../../assets/images/foodBackground.jpg';
 import clothingBackground from '../../../assets/images/clothingBackground.jpg';
-
+import { useEffect } from 'react';
+import { getCategories } from '../../store/categories';
 
 function Categories() {
 
@@ -17,6 +18,10 @@ function Categories() {
   const categoryHandler = (category) => {
     dispatch(changeProducts(category));
   };
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
 
   const getCategoryBackground = (categoryName) => {
     // Determine the background image URL based on the category name
@@ -66,7 +71,7 @@ function Categories() {
               }}
             >
             {/* Render the category display name */}
-            <Typography variant="body1">{category.displayName}</Typography>
+            <Typography variant="body1">{category.name}</Typography>
             </Button>
           ))
         }
