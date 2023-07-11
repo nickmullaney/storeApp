@@ -1,25 +1,55 @@
-let initialState = {
-  categories: [
-    { name: 'electronics', displayName: 'Electronics' },
-    { name: 'food', displayName: 'Food' },
-    { name: 'clothing', displayName: 'Clothing' },
-  ],
-  activeCategory: '',
-};
+import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-function categoriesReducer(state = initialState, action) {
-  switch(action.type){
-    case 'CHANGE_PRODUCTS':
-      return {
-        ...state,
-        activeCategory: action.payload, //send all the payload action to use it
+const categoriesSlice = createSlice({
+  name: 'categories',
+  initialState: {
+    categories: [],
+    activeCategory: '',
+  },
+  reducers: {
+    activeCategory: (state, action) => {
+      return { ...state, activeCategory: action.payload }
+    },
+    setInitialCategories: (state, action) => {
+      state.categories = action.payload;
     }
-    case 'RESET':
-      return initialState;
-    default:
-      return state;
   }
+});
+
+export const getCategories = () => async(dispatch) => {
+  // Make our call to get categories from the database
+  let response = await axios.get('https://api-js401.herokuapp.com/api/v1/categories');
+  dispatch(setInitialCategories(response.data.results));
+
 }
 
+export const { activeCategory, setInitialCategories } = categoriesSlice.actions;
+export default categoriesSlice.reducer;
 
-export default categoriesReducer;
+
+// let initialState = {
+//   categories: [
+//     { name: 'electronics', displayName: 'Electronics' },
+//     { name: 'food', displayName: 'Food' },
+//     { name: 'clothing', displayName: 'Clothing' },
+//   ],
+//   activeCategory: '',
+// };
+
+// function categoriesReducer(state = initialState, action) {
+//   switch(action.type){
+//     case 'CHANGE_PRODUCTS':
+//       return {
+//         ...state,
+//         activeCategory: action.payload, //send all the payload action to use it
+//     }
+//     case 'RESET':
+//       return initialState;
+//     default:
+//       return state;
+//   }
+// }
+
+
+// export default categoriesReducer;

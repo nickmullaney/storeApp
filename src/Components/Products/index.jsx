@@ -1,19 +1,34 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import '../../../App.css';
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import { When } from 'react-if';
-import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from '../../store/actions';
-import '../../../App.css';
+import { addToCart } from '../../store/cart.js';
+import { decrementInventoryOnAdd, getProducts } from '../../store/products.js';
 
 function Products() {
-  const { products } = useSelector((state) => state.products);
   const { activeCategory } = useSelector((state) => state.categories);
+  console.log('activeCategory', activeCategory);
+  const { products } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const addDispatcher = (product) => {
+    dispatch(addToCart(product));
+    dispatch(decrementInventoryOnAdd(product));
+  };
+
+  useEffect(() => {
+    dispatch(getProducts(activeCategory.name))
+  }, [activeCategory]);
 
   return (
     <When condition={activeCategory}>
+      <h2>{activeCategory.displayName}</h2>
+      <h4>Category Description Goes Here</h4>
+
       <Grid container spacing={2} width="80%" margin="auto">
-        {products.map((product) => (
-          <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>
+        {products.map((product, index) => (
+          <Grid item xs={12} sm={6} md={6} lg={4} key={`products${index}`}>
             <Card sx={{ maxWidth: 345 }}>
               <CardMedia
                 id="img-container"
@@ -33,11 +48,11 @@ function Products() {
                 </Typography>
               </CardContent>
               <CardActions>
-                <When condition={product.inStock}>
-                  <Button size="small" onClick={() => dispatch(addToCart(product))}>
+                {/* <When condition={product.inStock}> */}
+                  <Button size="small" onClick={() => addDispatcher(product)}>
                     Add to Cart
                   </Button>
-                </When>
+                {/* </When> */}
                 <Button size="small">View Details</Button>
               </CardActions>
             </Card>

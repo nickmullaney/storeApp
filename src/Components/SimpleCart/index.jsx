@@ -1,13 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, IconButton, Typography } from "@mui/material";
-import { removeFromCart } from '../../store/actions';
+import { removeFromCart } from '../../store/cart';
+import { incrementInventoryOnRemove } from '../../store/products';
 import DeleteIcon from '@mui/icons-material/Delete';
 import '../../../App.css';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const SimpleCart = () => {
+  const { cart } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cart);
+
+  const removeDispatcher = (product) => {
+    dispatch(removeFromCart(product));
+    dispatch(incrementInventoryOnRemove(product));
+  };
 
   return (
     <>
@@ -54,7 +60,8 @@ const SimpleCart = () => {
             <IconButton>
               <DeleteIcon
                 fontSize="small"
-                onClick={() => dispatch(removeFromCart(product))}
+                onClick={() => dispatch(removeDispatcher(product))}
+                className="remove"
               />
             </IconButton>
           </Box>
