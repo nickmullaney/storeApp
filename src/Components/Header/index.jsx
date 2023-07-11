@@ -6,7 +6,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SimpleCart from '../SimpleCart'; // Import the SimpleCart component
 
 const Header = () => {
-  const { cart } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {

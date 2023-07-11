@@ -1,10 +1,14 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeProducts } from '../../store/actions';
 import { Box, Button, Typography } from '@mui/material';
+import { activeCategory, getCategories } from '../../store/categories';
+// import { changeProducts } from '../../store/products';
 
 import electronicsBackground from '../../../assets/images/electronicsBackground.jpg';
 import foodBackground from '../../../assets/images/foodBackground.jpg';
 import clothingBackground from '../../../assets/images/clothingBackground.jpg';
+import weaponBackground from '../../../assets/images/weaponBackground.jpg';
+import gameBackground from '../../../assets/images/gameBackground.jpg';
 
 
 function Categories() {
@@ -14,9 +18,14 @@ function Categories() {
 
   const dispatch = useDispatch();
 
-  const categoryHandler = (category) => {
-    dispatch(changeProducts(category));
-  };
+  const setDispatcher = (category) => {
+    dispatch(activeCategory(category));
+    // dispatch(changeProducts(category));
+  }
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
 
   const getCategoryBackground = (categoryName) => {
     // Determine the background image URL based on the category name
@@ -27,6 +36,10 @@ function Categories() {
         return `url(${foodBackground})`;
       case 'clothing':
         return `url(${clothingBackground})`;
+      case 'weapons':
+        return `url(${weaponBackground})`;
+      case 'games':
+        return `url(${gameBackground})`;
       default:
         return 'none';
     }
@@ -41,7 +54,10 @@ function Categories() {
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
         {
           categories.map((category, index) => (
-            <Button key={`categories-${index}`} className='links' onClick={() => categoryHandler(category)}
+            <Button
+              key={`categories-${index}`}
+              className='links'
+              onClick={() => setDispatcher(category)}
               sx={{
                 cursor: 'pointer',
                 border: '1px solid #ccc',
@@ -65,8 +81,8 @@ function Categories() {
                 },
               }}
             >
-            {/* Render the category display name */}
-            <Typography variant="body1">{category.displayName}</Typography>
+              {/* Render the category display name */}
+              <Typography variant="body1">{category.name}</Typography>
             </Button>
           ))
         }
