@@ -35,6 +35,7 @@ export const getProducts = (activeCategory) => async(dispatch) => {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 export const incrementInventoryOnRemove = (product) => async (dispatch) => {
   product = {...product, inStock: product.inStock + 1};
   console.log('this is the product we are trying to remove', product);
@@ -45,6 +46,7 @@ export const incrementInventoryOnRemove = (product) => async (dispatch) => {
   getProducts(product.category);
 };
 
+// eslint-disable-next-line no-unused-vars
 export const decrementInventoryOnAdd = (product) => async(dispatch) => {
   product = {...product, inStock: product.inStock - 1};
   await axios.put(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, product);
