@@ -4,7 +4,8 @@ import { GET, CHANGE_PRODUCTS } from '../constants.js';
 
 export const setCategories = createAction(GET);
 
-let categories = [];
+let categories = {
+  categories:[]};
 
 const categoriesReducer = createReducer(
   categories, {
