@@ -1,54 +1,67 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import { When } from 'react-if';
-import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from '../../store/actions';
-import '../../../App.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, IconButton, Typography } from "@mui/material";
+import { removeFromCart } from '../../store/actions';
+import DeleteIcon from '@mui/icons-material/Delete';
+import '../../../App.css';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-function Products() {
-
-  const { products } = useSelector((state) => state.products);
-  const { activeCategory } = useSelector((state) => state.categories);
+const SimpleCart = () => {
   const dispatch = useDispatch();
-  // console.log(products);
+  const { cart } = useSelector((state) => state.cart);
 
   return (
-    <When condition={activeCategory}>
-      <Grid container spacing={2} width="80%" margin="auto">
-        {products.map((product, index) => (
-          <>
-            {
-              <Grid item xs={12} sm={6} md={6} lg={4}>
-                <Card key={`products-${index}`} sx={{ maxWidth: 345 }}>
-                  <CardMedia id="img-container"
-                    sx={{ height: 140 }}
-                    image={`https://source.unsplash.com/random/?${product.name}`}
-                    title="random image"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      Name: {product.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Price: {product.price}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      In-Stock: {product.inStock}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <When condition={product.inStock}>
-                      <Button size="small" onClick={() => dispatch(addToCart(product))}>Add to Cart</Button>
-                    </When>
-                    <Button size="small">View Details</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            }
-          </>
-        ))}
-      </Grid>
-    </When>
-  )
-}
+    <>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '300px',
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          p: 4,
+          borderRadius: '10px',
+        }}
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <ShoppingCartIcon />
+          <Typography variant="body1" component="div" sx={{ ml: 1 }}>
+            {cart.length}
+          </Typography>
+        </Box>
 
-export default Products;
+        <Typography variant="h5" component="h2" id="cart-modal" centered>
+          Cart
+        </Typography>
+        <Typography id="cart-modal-description">
+          Your items in the cart:
+        </Typography>
+        {cart.map((product, index) => (
+          <Box
+            className="cart-items"
+            key={`cart-${index}`}
+            sx={{
+              justifyContent: "space-between",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              width: "100%",
+              margin: "auto",
+            }}
+          >
+            <Typography>{product.name}</Typography>
+            <IconButton>
+              <DeleteIcon
+                fontSize="small"
+                onClick={() => dispatch(removeFromCart(product))}
+              />
+            </IconButton>
+          </Box>
+        ))}
+      </Box>
+    </>
+  );
+};
+
+export default SimpleCart;

@@ -1,10 +1,21 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { AppBar, Box, Button, IconButton, Toolbar, Typography,} from '@mui/material';
+import { AppBar, Box, Button, IconButton, Modal, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SimpleCart from '../SimpleCart'; // Import the SimpleCart component
 
 const Header = () => {
   const { cart } = useSelector((state) => state.cart);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -28,14 +39,23 @@ const Header = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={handleOpen}
           >
-            <ShoppingCartIcon />
-            <Typography variant="body1" component="div" sx={{ ml: 1 }}>
-            </Typography>
           </IconButton>
-          <Button color="inherit">Cart ({cart.length})</Button>
+          <ShoppingCartIcon />
+          <Button color="inherit" onClick={handleOpen}>Cart ({cart.length})</Button>
         </Toolbar>
       </AppBar>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="cart-modal"
+        aria-describedby="cart-modal-description"
+      >
+        {/* Render the SimpleCart component */}
+        <SimpleCart />
+      </Modal>
     </Box>
   );
 };
