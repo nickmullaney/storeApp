@@ -21,61 +21,69 @@ const SimpleCart = () => {
 
   const getUniqueProducts = (cart) => {
     return cart.filter((product, index, self) => {
-      return (
-        index === self.findIndex((p) => p.name === product.name)
-      );
+      return index === self.findIndex((p) => p.name === product.name);
     });
   };
 
-  return (
-    <>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '300px',
-          bgcolor: 'background.paper',
-          boxShadow: 24,
-          p: 4,
-          borderRadius: '10px',
-        }}
-      >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', float: 'right' }}>
-          <Badge badgeContent={cart.length} color="primary">
-            <ShoppingCartIcon />
-          </Badge>
-        </Box>
+  const calculateTotal = () => {
+    let total = 0;
+    cart.forEach((product) => {
+      total += product.price * getProductQuantity(product);
+    });
+    return total.toFixed(2);
+  };
 
-        <Typography variant="h5" component="h2" id="cart-modal" centered>
-          Cart
-        </Typography>
-        <Typography id="cart-modal-description">
-          Your items in the cart:
-        </Typography>
+  return (
+    <Box
+      sx={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '300px',
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+        borderRadius: '10px',
+      }}
+    >
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', float: 'right' }}>
+        <Badge badgeContent={cart.length} color="primary">
+          <ShoppingCartIcon />
+        </Badge>
+      </Box>
+
+      <Typography variant="h5" component="h2" sx={{ mb: 2, textAlign: 'center' }}>
+        Your Cart
+      </Typography>
+
+      <Box sx={{ borderBottom: '1px solid #ccc', paddingBottom: 1 }}>
         {getUniqueProducts(cart).map((product, index) => (
           <Box
             className="cart-items"
             key={`cart-${index}`}
             sx={{
-              justifyContent: "space-between",
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
               width: "100%",
               margin: "auto",
+              mb: 2,
+              bgcolor: '#f7f7f7',
+              borderRadius: '4px',
+              padding: '8px',
             }}
           >
             <Avatar src={`https://source.unsplash.com/random/?${product.name}`} alt={product.name} />
-            <Typography>
-              <Badge badgeContent={getProductQuantity(product)} color="primary" />
+            <Box sx={{ ml: 2 }}>
+              <Badge badgeContent={getProductQuantity(product)} color="primary">
+                <Typography variant="subtitle1">{product.name}</Typography>
+                </Badge>
+            </Box>
+            <Typography variant="body2" sx={{ ml: 'auto' }}>
+              ${product.price.toFixed(2) * getProductQuantity(product)}
             </Typography>
-            <Typography>
-              {product.name}
-            </Typography>
-            <Typography>${product.price * getProductQuantity(product)}</Typography>
-            <IconButton>
+            <IconButton sx={{ ml: 2 }}>
               <DeleteIcon
                 fontSize="small"
                 onClick={() => dispatch(removeDispatcher(product))}
@@ -85,7 +93,11 @@ const SimpleCart = () => {
           </Box>
         ))}
       </Box>
-    </>
+
+      <Typography variant="h6" component="div" sx={{ mt: 2, textAlign: 'right' }}>
+        Total: ${calculateTotal()}
+      </Typography>
+    </Box>
   );
 };
 
