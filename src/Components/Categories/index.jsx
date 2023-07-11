@@ -8,6 +8,7 @@ import electronicsBackground from '../../../assets/images/electronicsBackground.
 import foodBackground from '../../../assets/images/foodBackground.jpg';
 import clothingBackground from '../../../assets/images/clothingBackground.jpg';
 import weaponBackground from '../../../assets/images/weaponBackground.jpg';
+import gameBackground from '../../../assets/images/gameBackground.jpg';
 
 
 function Categories() {
@@ -37,6 +38,8 @@ function Categories() {
         return `url(${clothingBackground})`;
       case 'weapons':
         return `url(${weaponBackground})`;
+      case 'games':
+        return `url(${gameBackground})`;
       default:
         return 'none';
     }
