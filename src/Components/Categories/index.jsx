@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Typography } from '@mui/material';
 import { activeCategory, getCategories } from '../../store/categories';
+import { Link } from 'react-router-dom';
 // import { changeProducts } from '../../store/products';
 
 import electronicsBackground from '../../../assets/images/electronicsBackground.jpg';
@@ -58,6 +59,8 @@ function Categories() {
               key={`categories-${index}`}
               className='links'
               onClick={() => setDispatcher(category)}
+              component={Link}
+              to={`/products?category=${category.name}`}
               sx={{
                 cursor: 'pointer',
                 border: '1px solid #ccc',
@@ -86,15 +89,6 @@ function Categories() {
             </Button>
           ))
         }
-        {/* <ButtonGroup variant="text" aria-label="text button group">
-          {
-            categories.map((category, index) => (
-              <Button key={`categories-${index}`} className='links' onClick={() => categoryHandler(category)}>
-                {category.displayName}
-              </Button>
-            ))
-          }
-        </ButtonGroup> */}
       </Box>
     </>
   )
