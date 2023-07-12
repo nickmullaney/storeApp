@@ -28,7 +28,7 @@ const SimpleCart = () => {
   const calculateTotal = () => {
     let total = 0;
     cart.forEach((product) => {
-      total += product.price ;
+      total += product.price;
     });
     return total.toFixed(2);
   };
@@ -58,7 +58,8 @@ const SimpleCart = () => {
       </Typography>
 
       <Box sx={{ borderBottom: '1px solid #ccc', paddingBottom: 1 }}>
-        {getUniqueProducts(cart).map((product, index) => (
+
+        {cart.length > 0 ? getUniqueProducts(cart).map((product, index) => (
           <Box
             className="cart-items"
             key={`cart-${index}`}
@@ -78,7 +79,7 @@ const SimpleCart = () => {
             <Box sx={{ ml: 2 }}>
               <Badge badgeContent={getProductQuantity(product)} color="primary">
                 <Typography variant="subtitle1">{product.name}</Typography>
-                </Badge>
+              </Badge>
             </Box>
             <Typography variant="body2" sx={{ ml: 'auto' }}>
               ${product.price.toFixed(2) * getProductQuantity(product)}
@@ -91,7 +92,8 @@ const SimpleCart = () => {
               />
             </IconButton>
           </Box>
-        ))}
+        )) : <Typography variant="body2" sx={{ ml: 'auto' }}>Your cart is empty</Typography>
+        }
       </Box>
 
       <Typography variant="h6" component="div" sx={{ mt: 2, textAlign: 'right' }}>
