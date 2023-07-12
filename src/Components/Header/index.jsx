@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { AppBar, Box, Button, IconButton, Modal, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import SimpleCart from '../SimpleCart'; // Import the SimpleCart component
+import ShoppingCart from '../ShoppingCart'; // Import the SimpleCart component
 
 const Header = () => {
   const { cart } = useSelector((state) => state);
@@ -54,7 +54,7 @@ const Header = () => {
         aria-describedby="cart-modal-description"
       >
         {/* Render the SimpleCart component */}
-        <SimpleCart />
+        <ShoppingCart />
       </Modal>
     </Box>
   );

@@ -28,7 +28,7 @@ const SimpleCart = () => {
   const calculateTotal = () => {
     let total = 0;
     cart.forEach((product) => {
-      total += product.price * getProductQuantity(product);
+      total += product.price ;
     });
     return total.toFixed(2);
   };

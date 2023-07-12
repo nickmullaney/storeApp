@@ -17,39 +17,15 @@ const categoriesSlice = createSlice({
   }
 });
 
-export const getCategories = () => async(dispatch) => {
-  // Make our call to get categories from the database
-  let response = await axios.get('https://api-js401.herokuapp.com/api/v1/categories');
-  dispatch(setInitialCategories(response.data.results));
-
+export const getCategories = () => async (dispatch) => {
+  try {
+    // Make our call to get categories from the database
+    let response = await axios.get('https://api-js401.herokuapp.com/api/v1/categories');
+    dispatch(setInitialCategories(response.data.results));
+  } catch (e) {
+    console.log('Error fetching categories:', e.message);
+  }
 }
 
 export const { activeCategory, setInitialCategories } = categoriesSlice.actions;
 export default categoriesSlice.reducer;
-
-
-// let initialState = {
-//   categories: [
-//     { name: 'electronics', displayName: 'Electronics' },
-//     { name: 'food', displayName: 'Food' },
-//     { name: 'clothing', displayName: 'Clothing' },
-//   ],
-//   activeCategory: '',
-// };
-
-// function categoriesReducer(state = initialState, action) {
-//   switch(action.type){
-//     case 'CHANGE_PRODUCTS':
-//       return {
-//         ...state,
-//         activeCategory: action.payload, //send all the payload action to use it
-//     }
-//     case 'RESET':
-//       return initialState;
-//     default:
-//       return state;
-//   }
-// }
-
-
-// export default categoriesReducer;
