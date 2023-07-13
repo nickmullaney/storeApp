@@ -64,7 +64,6 @@ function Products() {
               </CardActions>
             </Card>
           </Grid>
-
         ))}
       </Grid>
     </When>
